@@ -147,6 +147,13 @@ return {
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
           end
+
+          -- Toggle inline virtual text
+          map('<leader>td', function()
+            vim.diagnostic.config { virtual_text = not vim.diagnostic.config().virtual_text }
+          end, '[T]oggle [D]iagnostic Virtual Text')
+
+          map('<leader>cd', vim.diagnostic.open_float, '[C]ode [D]iagnostic')
         end,
       })
 
@@ -159,6 +166,18 @@ return {
         end
         vim.diagnostic.config { signs = { text = diagnostic_signs } }
       end
+
+      vim.diagnostic.config {
+        virtual_text = true,
+        -- virtual_text = {
+        --   ---@diagnostic disable-next-line: assign-type-mismatch
+        --   source = 'always', -- Show source in virtual text
+        -- },
+        float = {
+          ---@diagnostic disable-next-line: assign-type-mismatch
+          source = 'always', -- Always show the source in floating windows
+        },
+      }
 
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP specification.
@@ -179,7 +198,7 @@ return {
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -204,7 +223,31 @@ return {
             },
           },
         },
+        -- pylsp = {
+        --   settings = {
+        --     pylsp = {
+        --       plugins = {
+        --         pycodestyle = {
+        --           ignore = { 'E266' },
+        --           maxLineLength = 120,
+        --         },
+        --       },
+        --     },
+        --   },
+        -- },
+        sqlls = {},
+        yamlls = {},
+        dockerls = {},
+        docker_compose_language_service = {},
+        terraformls = {},
       }
+
+      vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+        pattern = { '*.tf', '*.tfvars' },
+        callback = function()
+          vim.lsp.buf.format()
+        end,
+      })
 
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
