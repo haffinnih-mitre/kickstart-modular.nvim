@@ -2,4 +2,10 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
-return {}
+return {
+  require 'custom/plugins/oil',
+  require 'custom/plugins/ts-comments',
+  require 'custom/plugins/nvim-ufo',
+  require 'custom/plugins/nvim-treesitter-context',
+  require 'custom/plugins/indent-tools'
+}
