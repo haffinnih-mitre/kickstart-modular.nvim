@@ -32,6 +32,13 @@ return {
         return '%2l:%-2v'
       end
 
+      require('mini.icons').setup()
+      require('mini.move').setup()
+      require('mini.bracketed').setup(
+        { comment = { suffix = 'm', options = {} } }
+      )
+      require('mini.jump').setup()
+      require('mini.align').setup()
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
