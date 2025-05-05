@@ -110,5 +110,14 @@ else
   require 'lazy-plugins'
 end
 
+-- Autocommand group for custom Dockerfile detection
+vim.cmd [[
+  augroup custom_dockerfile_detection
+    autocmd!
+    autocmd BufRead,BufNewFile Dockerfile.* setlocal filetype=dockerfile
+    autocmd BufRead,BufNewFile dockerfile.* setlocal filetype=dockerfile
+  augroup END
+]]
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
