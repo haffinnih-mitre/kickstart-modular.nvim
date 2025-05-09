@@ -7,5 +7,6 @@ return {
   require 'custom/plugins/ts-comments',
   require 'custom/plugins/nvim-ufo',
   require 'custom/plugins/nvim-treesitter-context',
-  require 'custom/plugins/indent-tools'
+  require 'custom/plugins/indent-tools',
+  require 'custom/plugins/vim-tmux-navigator'
 }
